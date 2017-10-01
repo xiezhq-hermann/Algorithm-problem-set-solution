@@ -2,6 +2,7 @@
 #### *Zhiqiang Xie*  77892769
 
 ##Problem 1
+
 `a.` By Master Theorem, $log_3 9 = 2$,
 
 ​	$T(n) \in \Theta(n^2lg(n))​$
@@ -129,4 +130,3 @@ Based on the formula above: $\epsilon_{n+1} < \beta(\frac{\epsilon_1}{\beta})^{2
 $\epsilon_5 < 2 * \sqrt{3}*(0.077)^{(2^4)} = 5.29*10^{-18} < 4*10^{-16}$
 
 $\epsilon_6 < 2 * \sqrt{3}*(0.077)^{(2^5)} = 8.08*10^{-36} < 4*10^{-32}$
-
