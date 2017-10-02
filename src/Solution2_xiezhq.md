@@ -27,6 +27,8 @@
 
 ### Problem 2
 
+The number in **bold** text is comparing to those in `monospace`, and they'll all be moved.
+
 | 4     | 9     | 2     | 3     | 5     | 7     | 8     | 1     | 6     |
 | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
 | **4** | 9     | 2     | 3     | 5     | 7     | 8     | 1     | 6     |
@@ -75,7 +77,7 @@ def findKthSmallest(array, k):
     :type array: List[int]
     :type k: int
     :rtype: int
-    For concise, no duplicate and 1 <= k <= len(array) are supposed
+    For concise, 1 <= k <= len(array) and no duplicate are supposed
     """
     pivot = array[0]
     tem_index = 1
@@ -126,9 +128,9 @@ The time complexity $T(n) = \Theta(1) + T(n/2) \in \Theta(log(n))$
 
 ### Problem 6
 
-1. As for base case $n = 2​$, we can easily show that CURLY-SORT swaps the two elements if they are not sorted.
+1. As for base case $n = 2$, we can easily show that CURLY-SORT swaps the two elements if they are not sorted.
 
-   Now we assume CURLY-SORT correctly sorts an array with length of $k$ and $1 \leq k < n$.  Particularly, we set $k = 2n/3$. Therefore, 
+   Now we assume CURLY-SORT correctly sorts an array with length of $k$ and $1 \leq k < n$.  Particularly, we set $k = 2n/3$. Therefore,
 
    - We firstly correctly sort $A[i: j-k]$ which contains approximately the preceding $2n/3$ elements.
 
@@ -146,14 +148,15 @@ The time complexity $T(n) = \Theta(1) + T(n/2) \in \Theta(log(n))$
 
 2. $T(n) = 3T(2n/3) + \Theta(1) = \Theta(n^{log_{3/2}3})$ By Master Theorem.
 
+   ​
+
 3. As for worst case, $log_{3/2}3 \approx 2.71 > 2$, which means this algorithm is the worst one.
 
    |   Algorithm    | Time Complexity(worst case) |
    | :------------: | :-------------------------: |
-   | Insertion-sort |        $Theta(n^2)$         |
+   | Insertion-sort |        $\Theta(n^2)$        |
    |   Merge-sort   |     $\Theta(n log(n))$      |
    |   Quick-sort   |        $\Theta(n^2)$        |
    |   CURLY-SORT   |     $\Theta(n^{2.71})$      |
 
    ​
-
