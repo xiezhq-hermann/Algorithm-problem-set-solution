@@ -114,6 +114,7 @@ Algorithm part (some details in implementation are omitted):
 
 -   Start two BFS from $s$ and $t$ respectively.
 -   When the two BFS meet at just one node, we get the node $v$.
+    -   Be careful in implementing this algorithm. We execute the two BFS in turn, but the BFS should go ahead while encountering more than one subsequent node until it merge to just one node.
 -   The procedure costs $O(m + n)$ time.
 
 
@@ -160,11 +161,11 @@ Since now we have an MST $T$ of the graph $G$, we'll create a cycle in $T$ when 
 -   If the newly added edge has the maximum cost among the edges of the cycle, then the MST remains as it is.
 -   If some other edge of the cycle has the maximum cost, then that's the edge to be removed to get a tree with lower cost.
 
-Therefore, our task is to determine the circle and the edge with the maximum cost. Besides, we know that the circle contains $u, v, (u, v)$.
+Therefore, our task is to determine the circle and the edge with the maximum cost. Besides, we know that the circle contains $v, w, (v, w)$.
 
-Therefore, we can simply find a path from $u$ to $v$ in $T$ and record the cost of each edge of it.
+Therefore, we can simply find a path from $v$ to $w$ in $T$ and record the cost of each edge of it.
 
--   Since $T$ is a tree, here's only one path from $u$ to $v$ and we can apply BFS or DFS with backtracking.
+-   Since $T$ is a tree, here's only one path from $v$ to $w$ and we can apply BFS or DFS with backtracking.
 -   As for a tree, $O(E) = O(V)$, this method can test the MST in $O(V)$ time without any more assumptions.
 
 However, we can take use of the features of a tree to make it better:
@@ -175,7 +176,7 @@ However, we can take use of the features of a tree to make it better:
 
     We can also implement this job in $O(V)$ time.
 
--   Traverse $u, v$ to the root node, and join the two paths to get what we want.
+-   Traverse $v, w$ to the root node, and join the two paths to get what we want.
 
 -   This procedure can be terminated if one of them is the ancestor of another. Generally, it costs $O(H)$ time where the $H$ is the height of $T$, which is often far less than $V$. In the worst case, it costs $O(V)$ time.
 
@@ -197,4 +198,4 @@ Furthermore, it's possible to accelerate the procedure to find the least common 
 
 -   In this way, we can find the LCA in $O(\log V)$ time.
 
-Once we find the LCA of $u, v$, the rest time cost will depend on the circumference of the cycle. In the worst case, it costs $O(V)$ still.
+Once we find the LCA of $v, w$, the rest time cost will depend on the circumference of the cycle. In the worst case, it costs $O(V)$ still.
