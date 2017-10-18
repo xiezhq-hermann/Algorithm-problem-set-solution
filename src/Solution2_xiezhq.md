@@ -159,4 +159,70 @@ The time complexity $T(n) = \Theta(1) + T(n/2) \in \Theta(log(n))$
    |   Quick-sort   |        $\Theta(n^2)$        |
    |   CURLY-SORT   |     $\Theta(n^{2.71})$      |
 
-   ​
+
+
+
+### Problem 7
+
+The max binary heap is like this:
+
+![Max binary heap](https://raw.githubusercontent.com/xiezhq-hermann/Algorithm-problem-set-solution/master/materials/maxBinHeap.PNG)
+
+
+
+### Problem 8
+
+**Python**
+
+```python
+class MedianHeap(object):
+    """
+    A pseudo MedianHeap consist of a maxheap and a minheap.
+    The details of maxheap and minheap are omitted for conciseness.
+    """
+
+    def __init__(self):
+        self.maxheap = []
+        self.minheap = []
+
+    def push(self, n):
+        """
+        The method is designed for streaming data.
+        Optimize it for other kinds of interfaces.
+        """
+        if self.maxheap.size > self.minheap.size:
+            if self.maxheap[0] > n:
+                self.maxheap[0], n = n, self.maxheap[0]
+                self.maxheap.heapify(0) # 0 specifies the node to be heapified
+            self.minheap.push(n)
+        else:
+            if self.minheap.size != 0 and self.minheap[0] < n:
+                self.minheap[0], n = n, self.minheap[0]
+                self.minheap.heapify(0)
+            self.maxheap.push(n)
+
+    def top(self):
+        return self.maxheap[0] if maxheap.size != 0 else None
+
+    def pop(self):
+        median = self.maxheap.pop()
+        if self.maxheap.size < self.minheap.size:
+            self.maxheap.push(self.minheap.pop())
+        return median
+```
+
+The time complexity for wrost case $T(n) = \Theta(1) + \sum_{i=1}^{n}2\log i + \log n \in \Theta(n\log n)$
+
+
+
+### Problem 9
+
+1. ​
+
+   | 5        | 11       | 14       | 24       |
+   | -------- | -------- | -------- | -------- |
+   | 45       | 47       | 54       | $\infty$ |
+   | 98       | $\infty$ | $\infty$ | $\infty$ |
+   | $\infty$ | $\infty$ | $\infty$ | $\infty$ |
+
+
