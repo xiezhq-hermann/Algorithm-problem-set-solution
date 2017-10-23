@@ -10,7 +10,7 @@
 
 2. As for $i = 1, j = 0$, we have the base cases: $p_{1,0} = 0, p_{1,1} = 1$ and $p_{i,j} = 0$ for ${j > i}$
 
-   Therefore, any $p_{i,j}$ can be convert to the combination of the base cases above and then we can calculate it out.
+   Therefore, any $p_{i,j}$ can be converted to the combination of the base cases above and then we can calculate it out.
 
    ​
 
@@ -38,7 +38,7 @@ for i in range(1, n):
             max_value = max(max_value, v)
 ```
 
-The variable `max_value` telles us the maxinum value we can achieve with the capacity constrain.
+The variable `max_value` tells us the maximum value we can achieve with the capacity constrain.
 
 The time complexity $T(n) = \Theta(1) + n*n^2*\Theta(1) \in \Theta(n^3)$
 
@@ -55,10 +55,10 @@ Now, the only slight difference between this problem and the *counting inversion
 Now I'll present how to solve this problem using an AVL tree with handling duplicates.
 
  -  Create an empty AVL tree and initialize the pairs of friends to be 0.
- -  Every nodes in the AVL tree records the number of nodes in its right subtree, and this attribute will be update in every insertion and balancing steps.
+ -  Every node in the AVL tree records the number of nodes in its right subtree, and this attribute will be updated in every insertion and balancing steps.
      -  Here we may have better attribute candidates such as the size of the tree rooted with this node, which can be updated more easily in balancing step. And it's also convenient to calculate the number of nodes in its right subtree.
- -  We use $y_i$ as the value of nodes and iterate all $i$ to insert them into the AVL tree.
- -  Every time we do insertion into AVL tree, we traverse the tree from the root to a leaf by comparing every nodes in the path with $y_i$. When $y_i$ is smaller than current node, we increase the pair count by $1$ plus the number of nodes in right subtree of current node. When $y_i$ is larger than the current node, keep traversing and update the attribute of current node. 
+ -  We use $y_i​$ as the value of nodes and iterate all $i​$ to insert them into the AVL tree.
+ -  Every time we do insertion into AVL tree, we traverse the tree from the root to a leaf by comparing every node in the path with $y_i$. When $y_i$ is smaller than the current node, we increase the pair count by $1$ plus the number of nodes in the right subtree of the current node. When $y_i$ is larger than the current node, keep traversing and update the attribute of the current node. 
      -  If the node we are going to insert satisfies $x_i = x_{i-1}$, we should deduct $1$ from the count when we increase it. 
      -  If the node we are going to insert has the same value as the current node, just move along the path to right subtree. Remember to update the attribute too.
 
@@ -76,7 +76,7 @@ As for $c_i = \sum_{j\oplus k=i}a_jb_k$,
 
 $0 = xxxx \oplus xxxx, 1 = xxx1 \oplus xxx0, 2 = xx1x \oplus xx0x, 3 = xx11 \oplus xx00 = xx10 \oplus xx01...$ 
 
-This series of expressions are actually general (commutation is regarded as the same) and you can found that: $i \geq |j - k|$. Since we need the corresponding distinct bits to get the target, the maximum of difference could be $i$.
+This series of expressions is actually general (commutation is regarded as the same) and you can find that: $i \geq |j - k|$. Since we need the corresponding distinct bits to get the target, the maximum of difference could be $i$.
 
 Therefore, we can set $C = C_0, C_1$, where $C_0 = c_0, c_1, ..., c_{\frac{m}{2}-1}, C_1 = c_{\frac{m}{2}}, ..., c_{m-1}$. 
 
@@ -97,9 +97,9 @@ Thus, the time complexity $T(n) = 2T(n/2) + O(n) \in O(n\log n)$
 
 ### DNA Pattern Recognition
 
-Our goal is actually to find the maximum matching between the two string, and then we can get the minimum number of change.
+Our goal is actually to find the maximum matching between the two strings, and then we can get the minimum number of changes.
 
-The most convenient way to find the maximum matching in signal processing is to calculate the convolution of two signal. Here we hold the similar method.
+The most convenient way to find the maximum matching in signal processing is to calculate the convolution of two signals. Here we hold the similar method.
 
 Firstly, we need to quantify the four different signal pulse: A, T, G, C.
 
@@ -112,13 +112,13 @@ Firstly, we need to quantify the four different signal pulse: A, T, G, C.
 - $P_G[i] = 1, \forall P[i] = G$, else $P_G[i] = 0$, for all $0\leq i \leq n-1$
 - $P_C[i] = 1, \forall P[i] = C$, else $P_C[i] = 0$, for all $0\leq i \leq n-1$
 
-Then we need to convolve these subsignal to find the maximum matching.
+Then we need to convolve these sub-signal to find the maximum matching.
 
 $M_{max} = max(conv(S_A, P_A) + conv(S_T, P_T) + conv(S_G, P_G) + conv(S_C, P_C))$
 
 However, it costes $T(n) = \Theta(m) + \Theta(n) + 4*\Theta(m*n) + \Theta(n) \in O(n^2)$
 
-Here's one way to accelerate the convolution step: the convolution in time domain is equivlent to a multiplication in frequency domain.
+Here's one way to accelerate the convolution step: the convolution in the time domain is equivlent to a multiplication in the frequency domain.
 
 $M_A =  IFFT(FFT(S_A)*FFT(P_A))$ 
 
@@ -140,23 +140,23 @@ Since $\sqrt{n} < m < n-\sqrt{n}, T(n) \in O(n\log n)$
 
 In this problem, I'll reuse my AVL tree presented in Counting Friends problem.
 
-1. The only difference between this subproblem with the former one is this constrain:
+1. The only difference between this subproblem with the former one is this constraint:
 
    - $y_i \geq y^{'} > y_j$, where $y^{'}$ is a fixed constant.
 
    We could just modify the attribute to be the number of nodes whose $y_i \geq y^{'}$ in its right subtree.
 
-   Thus, the number of half-inversions is increased by the number recorded with double constrains.
+   Thus, the counting of half-inversions is increased by the number recorded with double constrains.
 
-   The time complexity remains the same $T(n) = O(n\log n)$
+   The time complexity remains the same: $T(n) = O(n\log n)$
 
    ​
 
 2. This problem is almost the same as the one above.
 
-   - Firstly we sort the pairs by $x_i$ in non-increasing order.
-   - Then we use $y_i$ to be the value of TreeNode, set indices $i, j$ to be the constrains.
-     - Be carful about the duplicates, and we have discussed in Counting Friends problem.
+   - Firstly, we sort the pairs by $x_i$ in non-increasing order.
+   - Then we use $y_i$ to be the value of TreeNode, set indices $i, j$ to be the constraints.
+     - Be careful about the duplicates, and we have discussed in Counting Friends problem.
 
    The time complexity remains the same $T(n) = O(n \log n)$
 
@@ -168,7 +168,7 @@ In this problem, I'll reuse my AVL tree presented in Counting Friends problem.
 
    **AVL + local array**
 
-   - This is the most ituitive one from our previous algorithm. We store the number of nodes in its right subtree as well all value of $y$ of them.
+   - This is the most intuitive one from our previous algorithm. We store the number of nodes in its right subtree as well all value of $y$ of them.
    - Every encounter we search all $y$ in local array and determine the number to be added to counting.
    - The time complexity is $T(n) = O(n^2\log n)$
 
@@ -192,4 +192,3 @@ In this problem, I'll reuse my AVL tree presented in Counting Friends problem.
    **2-D Binary Index Tree **
 
    - Here is no time for it, I'll update it later.
-
