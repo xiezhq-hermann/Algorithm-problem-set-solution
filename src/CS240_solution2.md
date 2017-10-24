@@ -37,7 +37,7 @@ for i in range(1, n):
             table[i,v] = min(table[i-1,v], weights[i]+table[i-1,v-values[i]])
         else:
             table[i,v] = min(table[i-1,v], weights[i])
-            
+
         if table[i,v] < W: # W is the capacity of knapsack
             max_value = max(max_value, v)
 ```
@@ -50,7 +50,7 @@ The time complexity $T(n) = \Theta(1) + n*n^2*\Theta(1) \in \Theta(n^3)$
 
 <div style="page-break-after: always;"></div>
 
-### Counting Friends 
+### Counting Friends
 
 Firstly, let's sort the scores of all students by $x_i$ in **non-decreasing** order.
 
@@ -64,8 +64,8 @@ Now I'll present how to solve this problem using an AVL tree with handling dupli
  -  Every node in the AVL tree records the number of nodes in its right subtree, and this attribute will be updated in every insertion and balancing steps.
      -  Here we may have better attribute candidates such as the size of the tree rooted with this node, which can be updated more easily in balancing step. And it's also convenient to calculate the number of nodes in its right subtree.
  -  We use $y_i​$ as the value of nodes and iterate all $i​$ to insert them into the AVL tree.
- -  Every time we do insertion into AVL tree, we traverse the tree from the root to a leaf by comparing every node in the path with $y_i$. When $y_i$ is smaller than the current node, we increase the pair count by $1$ plus the number of nodes in the right subtree of the current node. When $y_i$ is larger than the current node, keep traversing and update the attribute of the current node. 
-     -  If the node we are going to insert satisfies $x_i = x_{i-1}$, we should deduct $1$ from the count when we increase it. 
+ -  Every time we do insertion into AVL tree, we traverse the tree from the root to a leaf by comparing every node in the path with $y_i$. When $y_i$ is smaller than the current node, we increase the pair count by $1$ plus the number of nodes in the right subtree of the current node. When $y_i$ is larger than the current node, keep traversing and update the attribute of the current node.
+     -  If the node we are going to insert satisfies $x_i = x_{i-1}$, we should deduct $1$ from the count when we increase it.
      -  If the node we are going to insert has the same value as the current node, just move along the path to right subtree. Remember to update the attribute too.
 
 Therefore, we'll get the correct number of pairs of friends.
@@ -76,15 +76,15 @@ The time complexity $T(n) = O(n\log n) + n * O(\log n) \in O(n\log n)$
 
 ### XOR Convolution
 
-Since all integer can be writed in binary form with the length (digits) of $\lfloor\log_2 n\rfloor+1$, such as $8 = 1000$. 
+Since all integer can be writed in binary form with the length (digits) of $\lfloor\log_2 n\rfloor+1$, such as $8 = 1000$.
 
-As for $c_i = \sum_{j\oplus k=i}a_jb_k$, 
+As for $c_i = \sum_{j\oplus k=i}a_jb_k$,
 
-$0 = xxxx \oplus xxxx, 1 = xxx1 \oplus xxx0, 2 = xx1x \oplus xx0x, 3 = xx11 \oplus xx00 = xx10 \oplus xx01...$ 
+$0 = xxxx \oplus xxxx, 1 = xxx1 \oplus xxx0, 2 = xx1x \oplus xx0x, 3 = xx11 \oplus xx00 = xx10 \oplus xx01...$
 
 This series of expressions is actually general (commutation is regarded as the same) and you can find that: $i \geq |j - k|$. Since we need the corresponding distinct bits to get the target, the maximum of difference could be $i$.
 
-Therefore, we can set $C = C_0, C_1$, where $C_0 = c_0, c_1, ..., c_{\frac{m}{2}-1}, C_1 = c_{\frac{m}{2}}, ..., c_{m-1}$. 
+Therefore, we can set $C = C_0, C_1$, where $C_0 = c_0, c_1, ..., c_{\frac{m}{2}-1}, C_1 = c_{\frac{m}{2}}, ..., c_{m-1}$.
 
 - Then, $A = A_0, A_1$, $B = B_0, B_1$.
 
@@ -126,7 +126,7 @@ However, it costes $T(n) = \Theta(m) + \Theta(n) + 4*\Theta(m*n) + \Theta(n) \in
 
 Here's one way to accelerate the convolution step: the convolution in the time domain is equivlent to a multiplication in the frequency domain.
 
-$M_A =  IFFT(FFT(S_A)*FFT(P_A))$ 
+$M_A =  IFFT(FFT(S_A)*FFT(P_A))$
 
 $M_T = IFFT(FFT(S_T)* FFT(P_T))$
 
@@ -138,7 +138,7 @@ $M_{max} = max(M_A + M_T + M_G + M_C)$
 
 The time complexity now is $T(n) = \Theta(m) + \Theta(n) + 4*(O(n\log n) + O(m\log m)) + 4*(m+n)\log(m+n) + \Theta(n)$
 
-Since $\sqrt{n} < m < n-\sqrt{n}, T(n) \in O(n\log n)$ 
+Since $\sqrt{n} < m < n-\sqrt{n}, T(n) \in O(n\log n)$
 
 
 
