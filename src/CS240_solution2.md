@@ -178,12 +178,12 @@ In this problem, I'll reuse my AVL tree presented in Counting Friends problem.
 
    - This is the most intuitive one from our previous algorithm. We store the number of nodes in its right subtree as well all value of $y$ of them.
    - Every encounter we search all $y$ in local array and determine the number to be added to counting.
-   - The time complexity is $T(n) = O(n^2\log n)$
+   - The time complexity is $T(n) = O(n^2)$
 
    **AVL + local tree**
 
    - Optimize for local search.
-   - The time complexity of average case is $T(n) = O(n\log^2 n)$
+   - The time complexity of average case is $T(n) = O(n\log^2 n)​$
    - It's easy to fall into worst case though.
 
    **AVL + local AVL**
