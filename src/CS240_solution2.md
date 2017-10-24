@@ -6,9 +6,13 @@
 
 ### Collecting Toys
 
-1. $p_{i,j} = \frac{j}{n}p_{i-1,j} + \frac{n+1-j}{n}p_{i-1,j-1}$, for $i \geq 2$ and $1 \leq j \leq n$
+1. ​
 
-2. As for $i = 1, j = 0$, we have the base cases: $p_{1,0} = 0, p_{1,1} = 1$ and $p_{i,j} = 0$ for ${j > i}$
+   $p_{i,j} = \frac{j}{n}p_{i-1,j} + \frac{n+1-j}{n}p_{i-1,j-1}$, for $i \geq 2$ and $1 \leq j \leq n$
+
+2. ​
+
+   As for $i = 1, j = 0$, we have the base cases: $p_{1,0} = 0, p_{1,1} = 1$ and $p_{i,j} = 0$ for ${j > i}$
 
    Therefore, any $p_{i,j}$ can be converted to the combination of the base cases above and then we can calculate it out.
 
@@ -43,6 +47,8 @@ The variable `max_value` tells us the maximum value we can achieve with the capa
 The time complexity $T(n) = \Theta(1) + n*n^2*\Theta(1) \in \Theta(n^3)$
 
 
+
+<div style="page-break-after: always;"></div>
 
 ### Counting Friends 
 
@@ -82,9 +88,9 @@ Therefore, we can set $C = C_0, C_1$, where $C_0 = c_0, c_1, ..., c_{\frac{m}{2}
 
 - Then, $A = A_0, A_1$, $B = B_0, B_1$.
 
-Therefore, $C_0 = A_0*B_0 + A_1*B_1, C_1 = A_0*B_1 + A_1*B_0$
+Therefore, $C_0 = A_0*B_0 + A_1*B_1, C_1 = A_0*B_1 + A_1*B_0$, since $(i \geq |j - k|)$
 
-Here the time complexity $T(n) = 4*T(n/2) + O(n) \in O(n^2)$.
+Here the time complexity is $T(n) = 4*T(n/2) + O(n) \in O(n^2)$.
 
 However, here are two more expressions inside here:
 
@@ -135,6 +141,8 @@ The time complexity now is $T(n) = \Theta(m) + \Theta(n) + 4*(O(n\log n) + O(m\l
 Since $\sqrt{n} < m < n-\sqrt{n}, T(n) \in O(n\log n)$ 
 
 
+
+<div style="page-break-after: always;"></div>
 
 ### 2D Inversions
 
