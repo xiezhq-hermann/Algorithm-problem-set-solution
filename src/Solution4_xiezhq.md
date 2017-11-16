@@ -35,6 +35,8 @@ def findMedian(A, B):
     return findKth(A,B,l//2) if l%2==1 else (findKth(A,B,l//2-1)+findKth(A,B,l//2))/2
 ```
 
+The time complexity $T(n) \in O(log(m+n))$
+
 
 
 ### Problem 2
@@ -58,6 +60,8 @@ def minimal(f, left=a, right=b, precision):
     return f((left + right) / 2)
 ```
 
+The time complexity $T(n) \in log(b-a)$
+
 
 
 ### Problem 3
@@ -65,12 +69,13 @@ def minimal(f, left=a, right=b, precision):
 Since the $v_i$ is the unit value of the materials and we can pack materials in fractional part, this problem will be a quite simple greedy one.
 
 - Firstly, sort the materials by their unit values in descending order. This step costs $O(n\log n)$ time.
-- Then pack the materials in the order we sorted until we fullfil our package. Since the $x_i$ can be fractional, we can just fullfil our package.
+- Then pack the materials in the order we sorted until we fullfil our package. Since the $x_i$ can be fractional, we can just fullfil our package. This step costs $O(n)$ time.
+- The time complexity $T(n) = O(n) + O(n\log n) \in O(n\log n)$
 
 Proof:
 
 - Assume here is an optimal solution to pick materials. We firstly sort the materials packed by unit values in descending order.
-- For every unit of materials we pack, we compare it to corresponding choice in optimal solution. It's guaranteed that the value of  our choice is not less than optimal solution, because here is no materials left with higher unit value.
+- For every unit of materials we pack, we compare it to the corresponding choice in optimal solution. It's guaranteed that the value of  our choice is not less than optimal solution, because here is no materials left with higher unit value.
 - Therefore, our greedy solution is optimal.
 
 
@@ -93,3 +98,26 @@ Proof:
 
 ### Problem 5
 
+1. ![Peak](https://raw.githubusercontent.com/xiezhq-hermann/Algorithm-problem-set-solution/master/materials/peak.jpg)
+
+2. Let $a = max(A)$ and the index is $(i,j)$, there is no doubt that:
+
+   - $a \geq max \{A_{i-1,j}, A_{i+1,j}, A_{i,j-1}, A_{i,j+1} \}$, therefore $a$ is certainly one of the peak in the matrix.
+
+   Here is a divide and conquer method to find a peak:
+
+   - Treat the middle column as an $m \times 1 $ matrix, and find the entry with **max value** and index $(i, j)$ in this submatrix. This step costs $O(m)$ time.
+   - Consider the two values $A_{i,j-1}$ and $A_{i,j+1}$. If neighter value is greater than $A_{i,j}$, then return $A_{i,j}$ as a peak. Otherwise, recurse on half of the matrix containing a greater value. This step costs $O(1)$ time and it'll be excuted $O(\log n)$ times at most.
+   - The time complexity $T(n) = O(m)*O(1)*O(\log n) \in O(m\log n)$
+
+3. The time complexity depends on the implementation of finding peak in the $m\times 1$ matrix:
+
+   - It can be done in $\log m​$ time if we apply the divide and conquer method too.
+
+
+   - $T(n) = O(\log m)*O(1)*O(\log n) \in O(\log m\log n)$
+
+   This algorithm is incorrect:
+
+   - $A = \begin{bmatrix}0 & 0 & 0\\ 3 & 2 & 0 \\ 4 & 0 & 0 \\ 5 & 6 & 0\end{bmatrix}$ Firstly, we'll choose the $A_{2,2} = 2$ to be the peak in this column.
+   - Then the submatrix is going to be  $\begin{bmatrix}0\\3\\4\\5\end{bmatrix}$, thus the entry $A_{4,1}$ is the choice but it's wrong since $A_{4,1} = 5 < 6 = A_{4,2}$.
