@@ -60,7 +60,7 @@ def minimal(f, left=a, right=b, precision):
     return f((left + right) / 2)
 ```
 
-The time complexity $T(n) \in log(b-a)$
+The time complexity $T(n) \in O(log(b-a))$
 
 
 
