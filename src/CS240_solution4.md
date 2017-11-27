@@ -12,7 +12,7 @@ STINGY-SAT = $\{<\phi, k>: \phi$ is a satisfiable boolean formula with at most $
 
 1. STINGY-SAT $\in$ NP.
 
-   - Given an arbitary solution to Stingy SAT, we can evaluate the CNF formula in polynomial time by basic logical operations. And it just takes $O(1)$ time more to check whether the number of variables which are assigned to be true is less or equal to $k$.
+   - Given an arbitary solution to Stingy SAT, we can evaluate the CNF formula in polynomial time by basic logical operations. And it takes $O(1)$ time more to check whether the number of variables which are assigned to be true is less or equal to $k$.
 
 2. SAT $\leq_p$ STINGY-SAT
 
@@ -24,11 +24,11 @@ STINGY-SAT = $\{<\phi, k>: \phi$ is a satisfiable boolean formula with at most $
      We now need to prove that $f$ is a yes-instance of SAT if and only if that $(f,n)$ is a yes-instance of Stingy SAT.
 
      - $(\Rightarrow)$ Suppose that $f$ is a yes-instance, and we can see that no more than $n$ variables in the formula can be true since $n$ is the amount of variables. So any satisfying assignment of instance $f$ will be a satisfying assignment of instance $(f,n)$. Therefore, $(f,n)$ is a yes-instance of Stingy SAT.
-     - $(\Leftarrow)$ Suppose that $(f,n)$ is a yes-instance, any satisfying assignment of it's certainly a satisfying assignment of instance $f$.  Therefore, $f$ is a yes-instance of SAT.
+     - $(\Leftarrow)$ Suppose that $(f,n)$ is a yes-instance, any satisfying assignment of it is certainly a satisfying assignment of instance $f$.  Therefore, $f$ is a yes-instance of SAT.
 
 Stingy SAT problem is NP-complete.
 
-
+<div style="page-break-after: always;"></div>
 
 ### Problem 2: Zero Weight Cycle
 
@@ -64,7 +64,7 @@ Zero-Weight-Cycle = $\{<G>: G$ is a directed graph containing a zero weight cycl
 
 Zero Weight Cycle problem is NP-complete.
 
-
+<div style="page-break-after: always;"></div>
 
 ### Problem 3: **Dominating Set** 
 
@@ -74,34 +74,34 @@ DOMINATING-SET = $\{<G,K>:$ graph $G$ has a dominating set of size $K\}$.
 
 1. DOMINATING-SET $\in$ NP.
 
-   - Given an arbitary solution to it $V^\prime \in V$, we can check whether $V^\prime$ is a dominating set in polynomial time by checking whether for each $v \in V$, $v \in V^\prime$ or at least one of its neighbors $\in V^\prime$. And it just takes $O(1)$ time more to check whether the number of nodes in $V^\prime$ is less or equal to $K$.
+   - Given an arbitary solution to it $V^\prime \in V$, we can check whether $V^\prime$ is a dominating set in polynomial time by checking whether for each $v \in V$, $v \in V^\prime$ or at least one of its neighbors $\in V^\prime$. And it takes $O(1)$ time more to check whether the number of nodes in $V^\prime$ is less or equal to $K$.
 
 2. VERTEX-COVER $\leq_p$ DOMINATING-SET
 
    - Transformation:
 
-     - Given an instance of VERTEX-COVER, a undirected graph $G = (V, E, k)$, we can construct a new undirected graph $G^\prime = (V^\prime,E^\prime, k)$:
+     - Given an instance of VERTEX-COVER, a undirected graph $G = (V, E)$, we can construct a new undirected graph $G^\prime = (V^\prime,E^\prime)$:
        - $V^\prime = \{f(v), \forall v\in V, f(e),\forall e\in E\}$, where $f$ is a function to produce a vertex, and $|V^\prime| = |V| + |E|$.
-       - $E^\prime = \{g(v,e), \forall e=(v,\_) or (\_,v), g(u,v),\forall u,v\in V u\neq v \}$, where $g$ is a function to produce a edge. Note here is a clique in $G^\prime$ with vertices $\{f(v), \forall v\in V\}$.
-       - Now we set the undirected graph $G^\prime$ to be an instance of DOMINATING-SET.
+       - $E^\prime = \{g(f(v),f(e)), \forall e=(v,\_) or (\_,v), g(f(u),f(v)),\forall u,v\in V u\neq v \}$, where $g$ is a function to produce an edge. Note here is a clique in $G^\prime$ with vertices $\{f(v), \forall v\in V\}$.
+       - Now we set $(G^\prime, K)$ to be an instance of DOMINATING-SET.
 
      This transformation can be done in polynomial time $(O(n^2))$.
 
    - Proof:
 
-     We now need to prove that $G$ is a yes-instance of VERTEX-COVER if and only if that $G^\prime$ is a yes-instance of DOMINATING-SET.
+     We now need to prove that $(G,K)$ is a yes-instance of VERTEX-COVER if and only if that $(G^\prime,K)$ is a yes-instance of DOMINATING-SET.
 
      - $(\Rightarrow)$ Suppose that $G$ is a yes-instance, thus we have a set $V_s \in V$ to be a vertex cover with size $k^\prime$. Then here's a dominating set in $G^\prime$ with size $k^\prime$, because all $f(e) \in V^\prime$ are connected to nodes in $\{f(v), \forall v \in V_s\}$. Where $k^\prime \leq k$.
 
-       Therefore $G^\prime$ is a yes-instance of DOMINATING-SET.
+       Therefore $(G^\prime,K)$ is a yes-instance of DOMINATING-SET.
 
-     - $(\Leftarrow)$ Suppose that $G^\prime$ is a yes-instance, thus we have a dominating set $V_d\in V^\prime$ with size $k^\prime$. If $V_d$ contains any $f(e)$, we can replace it by $f(v)$, where $v$ is either of the endpoints of $e$. This replacement doesn't destroy the property of dominating set, because any $f(e)$ just connects to two $f(v)$, where $v$ are the endpoints, and every $f(v)$ are connected to each other. Similarly, we can see here's a vertex cover with size $k^\prime$ in $G$. Where $k^\prime \leq k$.
+     - $(\Leftarrow)$ Suppose that $(G^\prime,K)$ is a yes-instance, thus we have a dominating set $V_d\in V^\prime$ with size $k^\prime$. If $V_d$ contains any $f(e)$, we can replace it by $f(v)$, where $v$ is either of the endpoints of $e$. This replacement doesn't destroy the property of dominating set, because any $f(e)$ just connects to two $f(v)$, where $v$ are the endpoints, but every $f(v)$ are connected to each other. Similarly, we can see here's a vertex cover with size $k^\prime$ in $G$. Where $k^\prime \leq k$.
 
-       Therefore $G$ is a yes-instance of VERTEX-COVER.
+       Therefore $(G,K)$ is a yes-instance of VERTEX-COVER.
 
 Dominating Set problem is NP-complete.
 
-
+<div style="page-break-after: always;"></div>
 
 ### Problem 4:  Course Scheduling
 
@@ -131,12 +131,12 @@ We call the problem described here "Course Scheduling ", it's somehow hard to wr
 
        Therefore $(C, S, R, K)$ is a yes-instance of COURSE-SCHEDULING.
 
-     - $(\Leftarrow)$ Suppose that $(C, S, R, K)$ is a yes-instance, thus no student takes two courses which are at the same time. So we have no adjacent nodes have the same color, recall the definition of 3-COLOR problem we'll see $ (C, S, R, K)$ is a yes-instance of COURSE-SCHEDULING.
+     - $(\Leftarrow)$ Suppose that $(C, S, R, K)$ is a yes-instance, thus no student takes two courses which are at the same time. So we have no adjacent nodes have the same color, recall the definition of 3-COLOR problem we'll see $G$ is a yes-instance of 3-COLOR.
 
 
 Course Scheduling problem is NP-complete.
 
-
+<div style="page-break-after: always;"></div>
 
 ### Problem 5: Two Trucks 
 
@@ -175,9 +175,9 @@ TWO-TRUCKS = $\{<G, s, K>: G=(V,E)$ is a directed weighted complete graph, $s$ i
 
 Two Trucks problem is NP-complete.
 
+<div style="page-break-after: always;"></div>
 
-
-### Problem 5: Knapsack
+### Problem 6: Knapsack
 
 1. KNAPSACK $\in$ NP.
 
@@ -195,7 +195,7 @@ Two Trucks problem is NP-complete.
 
      We now need to prove that $(S,t)$ is a yes-instance of SUBSET-SUM if and only if that $(A,C,b,k)$ is a yes-instance of KNAPSACK.
 
-     - $(\Rightarrow)$ Suppose that $(S,t)$ is a yes-instance, thus here exists a subset $S^\prime \in S$ such that $t = \sum_{s\in S^\prime}s$. Since $S = A = C$ even with the same order, the knapsack can be fulfilled by weight and value of $t$.
+     - $(\Rightarrow)$ Suppose that $(S,t)$ is a yes-instance, thus here exists a subset $S^\prime \in S$ such that $t = \sum_{s\in S^\prime}s$. Since $S = A = C$ even with the same order, the knapsack can be fulfilled by weight and value both of $t$.
 
        Therefore $ (A,C,b,k)$ is a yes-instance of KNAPSACK.
 
