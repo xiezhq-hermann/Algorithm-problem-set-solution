@@ -28,6 +28,8 @@ STINGY-SAT = $\{<\phi, k>: \phi$ is a satisfiable boolean formula with at most $
 
 Stingy SAT problem is NP-complete.
 
+
+
 ### Problem 2: Zero Weight Cycle
 
 We call a simple cycle with the sum of its edge weights to be exactly $0$ "zero weight cycle", in formal-language terms:
@@ -46,7 +48,7 @@ Zero-Weight-Cycle = $\{<G>: G$ is a directed graph containing a zero weight cycl
 
        - Where $G_n = (V, E_n)$, $E_n$ means $weight(e_n) = -(|V|-1)$ and weights of other edges are $1$.
 
-       This transformation cost polynomial time $O(n^2)$.
+       This transformation can be done in polynomial time $(O(n^2))$.
 
      - Now we set the directed graph $G^\prime$ to be an instance of Zero-Weight-Cycle.
 
@@ -62,54 +64,146 @@ Zero-Weight-Cycle = $\{<G>: G$ is a directed graph containing a zero weight cycl
 
 Zero Weight Cycle problem is NP-complete.
 
-### Problem 3: Vertex Cover Neighbor 
-
-We call the problem described here "Vertex Cover Neighbor", a *vertex cover neighbor* of an graph $G = (V, E)$ is a subset $V^\prime \in V$ such that for every $v \in V$, we have $v \in V^\prime$ or at least one of its neighbors $\in V^\prime$, in formal-language terms:
-
-Vertex-Cover-Neighbor = $\{<G,K>:$ graph $G$ has a vertex cover neighbor of size $K\}$.
-
-1. Vertex-Cover-Neighbor $\in$ NP.
-
-   - Given an arbitary solution to it $V^\prime \in V$, we can check whether $V^\prime$ is a vertex cover neighbor in polynomial time by checking whether for each $v \in V$, $v \in V^\prime$ or at least one of its neighbors $\in V^\prime$. And it just takes $O(1)$ time more to check whether the number of nodes in $V^\prime$ is less or equal to $K$.
-
-2. SET-COVER $\leq_p$ Vertex-Cover-Neighbor
-
-   - Transformation:
-
-     - Given an instance of 
-
-   - Proof:
-
-     We now need to prove that $G$ is a yes-instance of Directed-Hamiltonian-Cycle if and only if that $G^\prime$ is a yes-instance of Zero-Weight-Cycle.
-
-     - $(\Rightarrow)$ Suppose that $$ is a yes-instance . Therefore $ $ is a yes-instance of 
-     - $(\Leftarrow)$ Suppose that $$ is a yes-instance . Therefore $ $ is a yes-instance of 
-
- problem is NP-complete.
 
 
+### Problem 3: **Dominating Set** 
 
-### Problem : 
+We call the problem described here "Dominating Set", a *dominating set* of an graph $G = (V, E)$ is a subset $V^\prime \in V$ such that for every $v \in V$, we have $v \in V^\prime$ or at least one of its neighbors $\in V^\prime$, in formal-language terms:
 
-We call the problem described here "", in formal-language terms:
+DOMINATING-SET = $\{<G,K>:$ graph $G$ has a dominating set of size $K\}$.
 
- = $\{<G>: G$ $\}$
+1. DOMINATING-SET $\in$ NP.
 
-1. $\in$ NP.
+   - Given an arbitary solution to it $V^\prime \in V$, we can check whether $V^\prime$ is a dominating set in polynomial time by checking whether for each $v \in V$, $v \in V^\prime$ or at least one of its neighbors $\in V^\prime$. And it just takes $O(1)$ time more to check whether the number of nodes in $V^\prime$ is less or equal to $K$.
 
-   - Given an arbitary solution to it
-
-2. $\leq_p$
+2. VERTEX-COVER $\leq_p$ DOMINATING-SET
 
    - Transformation:
 
-     - Given an instance of 
+     - Given an instance of VERTEX-COVER, a undirected graph $G = (V, E, k)$, we can construct a new undirected graph $G^\prime = (V^\prime,E^\prime, k)$:
+       - $V^\prime = \{f(v), \forall v\in V, f(e),\forall e\in E\}$, where $f$ is a function to produce a vertex, and $|V^\prime| = |V| + |E|$.
+       - $E^\prime = \{g(v,e), \forall e=(v,\_) or (\_,v), g(u,v),\forall u,v\in V u\neq v \}$, where $g$ is a function to produce a edge. Note here is a clique in $G^\prime$ with vertices $\{f(v), \forall v\in V\}$.
+       - Now we set the undirected graph $G^\prime$ to be an instance of DOMINATING-SET.
+
+     This transformation can be done in polynomial time $(O(n^2))$.
 
    - Proof:
 
-     We now need to prove that $G$ is a yes-instance of  if and only if that $G^\prime$ is a yes-instance of .
+     We now need to prove that $G$ is a yes-instance of VERTEX-COVER if and only if that $G^\prime$ is a yes-instance of DOMINATING-SET.
 
-     - $(\Rightarrow)$ Suppose that $$ is a yes-instance . Therefore $ $ is a yes-instance of 
-     - $(\Leftarrow)$ Suppose that $$ is a yes-instance . Therefore $ $ is a yes-instance of 
+     - $(\Rightarrow)$ Suppose that $G$ is a yes-instance, thus we have a set $V_s \in V$ to be a vertex cover with size $k^\prime$. Then here's a dominating set in $G^\prime$ with size $k^\prime$, because all $f(e) \in V^\prime$ are connected to nodes in $\{f(v), \forall v \in V_s\}$. Where $k^\prime \leq k$.
 
- problem is NP-complete.
+       Therefore $G^\prime$ is a yes-instance of DOMINATING-SET.
+
+     - $(\Leftarrow)$ Suppose that $G^\prime$ is a yes-instance, thus we have a dominating set $V_d\in V^\prime$ with size $k^\prime$. If $V_d$ contains any $f(e)$, we can replace it by $f(v)$, where $v$ is either of the endpoints of $e$. This replacement doesn't destroy the property of dominating set, because any $f(e)$ just connects to two $f(v)$, where $v$ are the endpoints, and every $f(v)$ are connected to each other. Similarly, we can see here's a vertex cover with size $k^\prime$ in $G$. Where $k^\prime \leq k$.
+
+       Therefore $G$ is a yes-instance of VERTEX-COVER.
+
+Dominating Set problem is NP-complete.
+
+
+
+### Problem 4:  Course Scheduling
+
+We call the problem described here "Course Scheduling ", it's somehow hard to write a formal-language term since there is no need to format it neatly.
+
+1. COURSE-SCHEDULING $\in$ NP.
+
+   - Given an arbitary solution to it, we can check whether the number of conflicts out of limits in polynomial time by checking all students' requests and counting the conflicts.
+
+2. 3-COLOR $\leq_p$ COURSE-SCHEDULING
+
+   - Transformation:
+
+     - Given an instance of 3-COLOR, a undirected graph $G=(V,E)$, we can construct an instance $(C, S, R, K)$ of COURSE-SCHEDULING.
+       - $C = V$
+       - $S = \{1,2,3\}$, each number represents a color and different time.
+       - $R = \{\{u,v, (u,v) = e\}, \forall e\in E\}$, where each edge represents a student, and the endpoints represent the two courses he/she takes.
+       - $K = 0$
+
+     This transformation can be done in polynomial time $(O(m+n))$.
+
+   - Proof:
+
+     We now need to prove that $G$ is a yes-instance of 3-COLOR if and only if that $(C, S, R, K)$ is a yes-instance of COURSE-SCHEDULING.
+
+     - $(\Rightarrow)$ Suppose that $G$ is a yes-instance, thus no adjacent nodes have the same color, which means the two courses taken by any students will never conflict.
+
+       Therefore $(C, S, R, K)$ is a yes-instance of COURSE-SCHEDULING.
+
+     - $(\Leftarrow)$ Suppose that $(C, S, R, K)$ is a yes-instance, thus no student takes two courses which are at the same time. So we have no adjacent nodes have the same color, recall the definition of 3-COLOR problem we'll see $ (C, S, R, K)$ is a yes-instance of COURSE-SCHEDULING.
+
+
+Course Scheduling problem is NP-complete.
+
+
+
+### Problem 5: Two Trucks 
+
+We call the problem described here "Two Trucks", in formal-language terms:
+
+TWO-TRUCKS = $\{<G, s, K>: G=(V,E)$ is a directed weighted complete graph, $s$ is a starting location $s\in V, k\in Z, G$ has two cycles both start at $s$ inside it with length at most $K, \forall v\in V, v$ is on at least one of the two cycles$\}$
+
+1. TWO-TRUCKS $\in$ NP.
+
+   - Given an arbitary solution to it, we can check whether every location are visited and the length of two cycles out of limits in polynomial time by traversing and counting.
+
+2. TSP $\leq_p$ TWO-TRUCKS
+
+   - Transformation:
+
+     - Given an instance of TSP, a directed weighted complete graph $G = (V,E)$, we can construct a new directed weighted complete graph $G^\prime = (V^\prime, E^\prime)$. Note all weights of edges are **nonnegative integers**.
+       - $V^\prime = V + a$, where $a$ is an additional vertex.
+       - $E^\prime = E + \{(v,a), (a,v), \forall v\in V \}$
+       - $d(s,a) = K, d(a,s) = 0$, where $s$ is a starting location which doesn't matter.
+       - $d(v,a) = d(a,v) = K+1, \forall v \in \{V-s\}$
+     - Now we get the new graph $(G^\prime, s, K)$ to be an instance of Two Trucks.
+
+     This transformation can be done in polynomial time $(O(m+n))$.
+
+   - Proof:
+
+     We now need to prove that $(G, K)$ is a yes-instance of TSP if and only if that $(G^\prime, s, K)$ is a yes-instance of TWO-TRUCKS.
+
+     - $(\Rightarrow)$ Suppose that $(G, K)$ is a yes-instance, thus we can deploy a truck to run a traverling-salesman tour with cost $k^\prime$, and another to run the cycle path $\{s, a, s\}$ with cost $K$. Where $k^\prime \leq K$.
+
+       Therefore $(G^\prime, s, K)$ is a yes-instance of TWO-TRUCKS.
+
+     - $(\Leftarrow)$ Suppose that $(G^\prime, s, K)$ is a yes-instance, since we can't run a cycle including location $a$ with length less or equal to $K$ except the cycle path $\{s,a,s\}$. One of the two trucks has to run this specfic cycle, so another truck has to run a traverling-salesman tour with cost at most $K$ to make it yes. Thus here's a traverling-salesman tour in graph $G$ with cost at most $K$.
+
+       Therefore $(G, K)$ is a yes-instance of TSP.
+
+Two Trucks problem is NP-complete.
+
+
+
+### Problem 5: Knapsack
+
+1. KNAPSACK $\in$ NP.
+
+   - Given an arbitary solution to it, we can check whether the total weight and total value are  qualified in Polynomial time by simple calculation.
+
+2. SUBSET-SUM $\leq_p$ KNAPSACK
+
+   - Transformation:
+
+     - Given an instance of SUBSET-SUM $(S,t)$, where $t$ is the target. We can construct an instance of KNAPSACK $(A,C,b,k)$:
+       - $A = \{a_1,...,a_n\} = S, b = t$
+       - $C = \{c_1,...,c_n\} = S, k = t$
+
+   - Proof:
+
+     We now need to prove that $(S,t)$ is a yes-instance of SUBSET-SUM if and only if that $(A,C,b,k)$ is a yes-instance of KNAPSACK.
+
+     - $(\Rightarrow)$ Suppose that $(S,t)$ is a yes-instance, thus here exists a subset $S^\prime \in S$ such that $t = \sum_{s\in S^\prime}s$. Since $S = A = C$ even with the same order, the knapsack can be fulfilled by weight and value of $t$.
+
+       Therefore $ (A,C,b,k)$ is a yes-instance of KNAPSACK.
+
+     - $(\Leftarrow)$ Suppose that $ (A,C,b,k)$ is a yes-instance, thus we have these two inequations 
+
+       - $\sum_{s\in S^\prime}s \leq b = t$
+       - $\sum_{s\in S^\prime}s \geq k = t$
+
+       Thus, $t = \sum_{s\in S^\prime}s$ holds. Therefore $ (S,t)$ is a yes-instance of SUBSET-SUM.
+
+Knapsack problem is NP-complete.
