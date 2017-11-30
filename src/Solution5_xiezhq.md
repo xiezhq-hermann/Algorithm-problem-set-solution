@@ -2,8 +2,6 @@
 
 ## _Zhiqiang Xie_ 77892769
 
-
-
 ### Problem 1: Save the Bridges
 
 1. **Python**
@@ -30,7 +28,9 @@
 
    Sort the plans by their cost $c_i$, and then we delete all plans with higher cost but less power by traversing them all. Now we get a new plan list in sorted (both cost and power) order:
 
-   $C_{new} = \{cn_1, cn_2,...,cn_g\}, P_{new} = \{pn_1, pn_2,...,pn_g\}$, where $cn$ is the cost and $pn$ is the power, $g$ is the number of plans now with $g \leq k$.
+   $C_{new} = \{cn_1, cn_2,...,cn_g\}, P_{new} = \{pn_1, pn_2,...,pn_g\}$, 
+
+   where $cn$ is the cost and $pn$ is the power, $g$ is the number of plans now with $g \leq k$.
 
    Sort the bridges by their number of stones $s_{u,v}$, and then we get a sorted array $S = s_1, s_2,..., s_m$, where $m$ is the number of bridges.
 
@@ -58,28 +58,34 @@
        # count the number of elements in the corresponding set 
    ```
 
-   The time complexity of process above should be: $T(n) = O(n) + O(g) + O(m)*O(\log n) + O(n)*O(\log q) \in O(m\log n + n\log q)$
+   The time complexity of process above should be: 
+
+   $T(n) = O(n) + O(g) + O(m)*O(\log n) + O(n)*O(\log q) \in O(m\log n + n\log q)$
 
    Here we have $m \geq n, k\geq q$, and $k \geq n$ or $k < n$. Thus $O(n\log q)\in O(k\log k)$ or $O(n\log q) \in O(m\log m)$.
 
    Therefore, we have the total time complexity $T(n) \in O(m\log m + k\log k)$
 
-
-
 ### Problem 2:  Parity Problems
 
 1. Start from an arbitrary node $v_0$ in the graph and run DFS, set $h(v_0) = 0$ and then for any new node we visited, assign $h(v_{j}) = \neg h(v_i) $ if $w(v_i, v_j)$ is even, assign $h(v_j) = h(v_i)$ if $w(v_i,v_j)$ is odd.
+
 2. I'd like to transform this problem to 2-coloring or bipartite graph problem:
+
    - Merge two nodes connected by an odd weighted edge to be a super-node iteratively. Finally we'll have a graph with add edges to be even-weighted.
    - Now our task is actually to color the nodes in two colors to make any two adjecent nodes have different color, the color here is corresponding to the $h(v_i)$.
    - Equivalently, now we want to prove whether this graph is a bipartite graph.
    - And we already know that a graph is bipartite if and only if it has no odd length cycles. Here odd length cycles are equivalent to cycles with an odd number of even-weight edges in this problem.
+
 3. Since we have the function $h$ exists if the undirected graph $G$ doesn't contain any cycles with an odd number of even-weight edges. 
+
    - We can firstly run the edge reweighting $\hat w(u,v) = w(u,v) + h(u) - h(v)$ to get a new graph with all edges in odd weights. This step costs $O(|E|)$ time.
+
    - Then apply the black magic algorithm to get the all-pairs shortest paths in $O(|V|^2)$ time.
-   - Since the edge reweighting doesn't change the shortest paths, the total time complexity $T(n) = O(|E|) + O(|V|^2) \in O(|V|^2)$
 
+   - Since the edge reweighting doesn't change the shortest paths, the total time complexity 
 
+     $T(n) = O(|E|) + O(|V|^2) \in O(|V|^2)$
 
 ### Problem 3: Largest Weight Cycle
 
@@ -91,7 +97,7 @@
 
 2. & 3. 
 
-   A direct strategy:
+   A direct bottom-top strategy:
 
    - Set four attributes for every nodes $(l_1(v_i),l_2(v_i), p_1(v_i), p_2(v_i))$, initialize them to be zero.
 
@@ -110,4 +116,18 @@
 
    And once we found the target node, we know the node is on the longest path of the weighted tree, which leads the largest weight cycle.
 
-   Besides, we could trace back from the $p_1(v), p_2(v)$ 
+   Besides, we could trace back from the $p_1(v), p_2(v)$ to the two endpoints of the longest path, where we add a zero-weighted edge between them to form the largest weight cycle.
+
+   Further more, if all the weights of the edges of the tree are negative, the procedrue outputs a sigle node which leads a self-loop. We should treat this case specially if the self-loop is illegal:
+
+   - Traverse all the edges and pick the one with largest weight.
+
+   The overall time complexity depends on the implementation of picking leaf nodes:
+
+   - Search from root to leaf every time, which leads 
+
+     $T(n) = O(n) + n*O(n) + O(n) \in O(n^2)$
+
+   - Search following $u$ to a leaf node, which means that we visit a node $k$ times, where $k$ is the number of it's child. Since every nodes except root have a parent, thus we have 
+
+     $T(n) = O(n) + O(2n) + O(n) + O(n) \in O(n)$
