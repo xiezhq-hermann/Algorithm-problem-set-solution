@@ -68,8 +68,28 @@
    ### BAGEL
 
    1. BAGEL $\in$ NP
+
       - Given an arbitary solution to BAGEL, we can sum out the result and compare it to $k$ in $O(n)$ time.
+
    2. 3-SAT $\leq_p$  BAGEL
+
       - Transformation:
+
         - Given an arbitary instance of 3-SAT, a 3-CNF formula $f(k)$, where $k$ is the number of clause. We construct a instance of BAGEL $B = (G,p,k)$, where $G = (V,E)$ and $|V| = 3*k$, $p(u) = 1$ for all $u\in V$.
-        - ![](../material)
+
+        - $G$ contains $3$ vertices for each clause, one for each literal. 
+
+        - Connect 3 literals in a clause in a triangle. 
+
+        - Connect literal to each of its negations.
+
+          ![](https://github.com/xiezhq-hermann/Algorithm-problem-set-solution/blob/master/materials/BAGEL.png?raw=true) This transformation costs $O(n)$ time.
+
+      - Proof:
+
+        We now need to prove that $f(k)$ is a yes-instance of 3-SAT if and only if $B$ is a yes-instance of BAGEL.
+
+        - $(\Rightarrow)$ Suppose that $f(k)$ is a yes-instance, here exists a satisfying assignment which select exact one true literal from each clause. Hence it's a subset $U\subseteq V$ such that no two vertices in $U$ are neighbors in $G$, and $\sum_{u\in U}p(u) = k$. Here $B$ is a yes-instance.
+        - $(\Leftarrow)$ Suppose that $B$ is a yes-instance, only one vertex in each triangle can be in the subset $U$. Since all vertices in $U$ are not adjacent. We can assign all the literals in $U$ to be true, and the assignment indicates that $f(k)$ is satisfiable.
+
+BAGEL is NP-complete.
