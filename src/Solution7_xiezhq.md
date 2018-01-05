@@ -23,7 +23,7 @@
 
      We now need to prove that $G$ is a yes-instance of CLIQUE if and only if that $F(M,k)$ is a yes-instance of MATRIX-FIXING.
 
-     - $(\Rightarrow)$ Suppose that $G$ is a yes instance, thus there are at least $m$ rows and columns of all zeros. Therefore, we can set the residues to be all zeros in $|V| - m = k$ operations.
+     - $(\Rightarrow)$ Suppose that $G$ is a yes instance, thus there is at least a $m\times m$ submatrix of all zeros inside it  (it's fine to assume the vertices in the clique are adjacent in matrix $M$, which is nothing about the number of operations required). Therefore, we can set the residues to be all zeros in $|V| - m = k$ operations.
      - $(\Leftarrow)$ Suppose that $F(M,k)$ is a yes-instance. Since every operation (set the $i'th$ row and the column to zero) is equivalent to connect the corresponding vertex in the graph to any other vertices. Once we can set all entries to be zero we can create a $|V|-$vertex clique by adding at most $k$ vertices to the original clique. Therefore, there must be a $m-$vertex clique inside the original instance $G$. Thus, it's a yes-instance.
 
    MATRIX-FIXING problem is NP-complete.
@@ -37,7 +37,9 @@
 
    - Thus, here are at most $(1-\frac{1}{k})$ fraction of nonzero entries left.
    - Every time we do this operation, we can concatenate the residue submatrixes into one with the size of $(n-1)\times(n-1)$. For the new matrix, the optimal number of operations is no more than $k$.
-   - After $t$ greedy operations, we have at most $(1-\frac{1}{k})^t$ fraction of the nonzero entries. Let $t = 2k\log n$, we have $n^2*(1-\frac{1}{k})^{2k\log n} < n^2 * e^{-\frac{1}{k}*2k\log n} = 1$. Hence, all entries will be zero in at most $2k\log n$ operations.
+   - After $t$ greedy operations, we have at most $(1-\frac{1}{k})^t$ fraction of the nonzero entries. Let $t = 2k\log n$, we have $n^2*(1-\frac{1}{k})^{2k\log n} < n^2 * e^{-\frac{1}{k}*2k\log n} = 1$. 
+
+   Hence, the greedy method can set all entries to be zero in at most $2k\log n$ operations.
 
 ### TRIPLE-SAT
 
